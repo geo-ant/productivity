@@ -16,8 +16,21 @@ call plug#begin('~/tools/vim-plugins')
   Plug 'ctrlpvim/ctrlp.vim'
   Plug 'psliwka/vim-smoothie'
   Plug 'vim-test/vim-test'
+  Plug 'rust-lang/rust.vim'
+  Plug 'preservim/tagbar'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
+" netrw configuration
+" see https://shapeshed.com/vim-netrw/
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+
+" configuration for tagbar
+nmap <F8> :TagbarToggle<CR>
+
+" use the darcula color scheme
 colorscheme darcula
 
 " configuration for vim-test
