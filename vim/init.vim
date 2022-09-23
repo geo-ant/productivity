@@ -20,6 +20,9 @@ call plug#begin('~/tools/vim-plugins')
   Plug 'preservim/tagbar'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
+  Plug 'tpope/vim-fugitive'
+  Plug 'cdelledonne/vim-cmake'
+  Plug 'wsdjeg/vim-fetch'
 call plug#end()
 
 " netrw configuration
