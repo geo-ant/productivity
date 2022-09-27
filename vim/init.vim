@@ -13,7 +13,6 @@ set scrolloff=25
 call plug#begin('~/tools/vim-plugins')
   Plug 'doums/darcula'					
   Plug 'neoclide/coc.nvim'
-  Plug 'ctrlpvim/ctrlp.vim'
   Plug 'psliwka/vim-smoothie'
   Plug 'vim-test/vim-test'
   Plug 'rust-lang/rust.vim'
@@ -23,6 +22,9 @@ call plug#begin('~/tools/vim-plugins')
   Plug 'tpope/vim-fugitive'
   Plug 'cdelledonne/vim-cmake'
   Plug 'wsdjeg/vim-fetch'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.x' }
 call plug#end()
 
 " netrw configuration
