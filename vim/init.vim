@@ -25,7 +25,30 @@ call plug#begin('~/tools/vim-plugins')
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.x' }
+  Plug 'fannheyward/telescope-coc.nvim'
 call plug#end()
+
+" Telescope plugin shortcuts
+" Find files using Telescope command-line sugar.
+" See https://github.com/nvim-telescope/telescope.nvim
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+" make coc and telescope work together,
+" see https://github.com/fannheyward/telescope-coc.nvim
+lua << EOF
+require("telescope").setup({
+  extensions = {
+    coc = {
+      theme = 'ivy',
+      prefer_locations = true, -- always use Telescope locations to preview definitions/declarations/implementations etc
+    }
+  },
+})
+require('telescope').load_extension('coc')
+EOF
 
 " netrw configuration
 " see https://shapeshed.com/vim-netrw/
