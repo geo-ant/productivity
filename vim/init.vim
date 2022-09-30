@@ -26,6 +26,7 @@ call plug#begin('~/tools/vim-plugins')
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.x' }
   Plug 'fannheyward/telescope-coc.nvim'
+  Plug 'tpope/vim-commentary'
 call plug#end()
 
 " Telescope plugin shortcuts
