@@ -8,6 +8,8 @@ set signcolumn=yes
 set splitright
 set splitbelow
 set scrolloff=25
+set nowrap
+set colorcolumn=80
 
 " plugins
 call plug#begin('~/tools/vim-plugins')
