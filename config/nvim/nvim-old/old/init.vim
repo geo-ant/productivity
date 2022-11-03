@@ -1,0 +1,1 @@
+/home/georgios/code/productivity/vim/init.vim
