@@ -74,16 +74,51 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["cmp-buffer"] = {
+    loaded = true,
+    path = "/home/georgios/.local/share/nvim/site/pack/packer/start/cmp-buffer",
+    url = "https://github.com/hrsh7th/cmp-buffer"
+  },
+  ["cmp-cmdline"] = {
+    loaded = true,
+    path = "/home/georgios/.local/share/nvim/site/pack/packer/start/cmp-cmdline",
+    url = "https://github.com/hrsh7th/cmp-cmdline"
+  },
+  ["cmp-nvim-lsp"] = {
+    loaded = true,
+    path = "/home/georgios/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
+    url = "https://github.com/hrsh7th/cmp-nvim-lsp"
+  },
+  ["cmp-nvim-lsp-signature-help"] = {
+    loaded = true,
+    path = "/home/georgios/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp-signature-help",
+    url = "https://github.com/hrsh7th/cmp-nvim-lsp-signature-help"
+  },
+  ["cmp-nvim-lua"] = {
+    loaded = true,
+    path = "/home/georgios/.local/share/nvim/site/pack/packer/start/cmp-nvim-lua",
+    url = "https://github.com/hrsh7th/cmp-nvim-lua"
+  },
+  ["cmp-path"] = {
+    loaded = true,
+    path = "/home/georgios/.local/share/nvim/site/pack/packer/start/cmp-path",
+    url = "https://github.com/hrsh7th/cmp-path"
+  },
   ["mason-lspconfig.nvim"] = {
     loaded = true,
     path = "/home/georgios/.local/share/nvim/site/pack/packer/start/mason-lspconfig.nvim",
     url = "https://github.com/williamboman/mason-lspconfig.nvim"
   },
   ["mason.nvim"] = {
-    config = { "\27LJ\2\n3\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\nmason\frequire\0" },
     loaded = true,
     path = "/home/georgios/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
+  },
+  ["nvim-cmp"] = {
+    config = { "\27LJ\2\nC\0\1\4\0\4\0\a6\1\0\0'\3\1\0B\1\2\0029\1\2\0019\3\3\0B\1\2\1K\0\1\0\tbody\15lsp_expand\fluasnip\frequire¹\a\1\0\t\0004\0u6\0\0\0'\2\1\0B\0\2\0029\1\2\0005\3\6\0005\4\4\0003\5\3\0=\5\5\4=\4\a\0035\4\v\0009\5\b\0009\5\t\0059\5\n\5B\5\1\2=\5\f\0049\5\b\0009\5\t\0059\5\n\5B\5\1\2=\5\r\4=\4\t\0035\4\16\0009\5\14\0009\5\15\5B\5\1\2=\5\17\0049\5\14\0009\5\18\5B\5\1\2=\5\19\0049\5\14\0009\5\15\5B\5\1\2=\5\20\0049\5\14\0009\5\18\5B\5\1\2=\5\21\0049\5\14\0009\5\22\5)\aüÿB\5\2\2=\5\23\0049\5\14\0009\5\22\5)\a\4\0B\5\2\2=\5\24\0049\5\14\0009\a\14\0009\a\25\aB\a\1\0025\b\26\0B\5\3\2=\5\27\0049\5\14\0009\5\28\5B\5\1\2=\5\29\0049\5\14\0009\5\30\0055\a!\0009\b\31\0009\b \b=\b\"\aB\5\2\2=\5#\4=\4\14\0039\4\b\0009\4$\0044\6\a\0005\a%\0>\a\1\0065\a&\0>\a\2\0065\a'\0>\a\3\0065\a(\0>\a\4\0065\a)\0>\a\5\0065\a*\0>\a\6\6B\4\2\2=\4$\3B\1\2\0019\1\2\0009\1+\0015\3,\0005\4.\0009\5\14\0009\5-\0059\5+\5B\5\1\2=\5\14\0044\5\3\0005\6/\0>\6\1\5=\5$\4B\1\3\0019\1\2\0009\1+\0015\0030\0005\0041\0009\5\14\0009\5-\0059\5+\5B\5\1\2=\5\14\0044\5\3\0005\0062\0>\6\1\0055\0063\0>\6\2\5=\5$\4B\1\3\1K\0\1\0\1\0\1\tname\tpath\1\0\1\tname\fcmdline\1\0\0\1\2\0\0\6:\1\0\1\tname\vbuffer\1\0\0\vpreset\1\3\0\0\6/\6?\fcmdline\1\0\1\tname\rnvim_lua\1\0\1\tname\fluasnip\1\0\1\tname\vbuffer\1\0\1\tname\tpath\1\0\1\tname\28nvim_lsp_signature_help\1\0\1\tname\rnvim_lsp\fsources\t<CR>\rbehavior\1\0\1\vselect\2\vInsert\20ConfirmBehavior\fconfirm\n<C-e>\nclose\14<C-Space>\1\3\0\0\6i\6c\rcomplete\n<C-f>\n<C-b>\16scroll_docs\n<Tab>\f<S-Tab>\n<C-n>\21select_next_item\n<C-p>\1\0\0\21select_prev_item\fmapping\18documentation\15completion\1\0\0\rbordered\vwindow\vconfig\fsnippet\1\0\0\vexpand\1\0\0\0\nsetup\bcmp\frequire\0" },
+    loaded = true,
+    path = "/home/georgios/.local/share/nvim/site/pack/packer/start/nvim-cmp",
+    url = "https://github.com/hrsh7th/nvim-cmp"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
@@ -100,10 +135,10 @@ _G.packer_plugins = {
     path = "/home/georgios/.local/share/nvim/site/pack/packer/start/packer.nvim",
     url = "https://github.com/wbthomason/packer.nvim"
   },
-  ["treesitter-terraform-doc.nvim"] = {
+  ["rust-tools.nvim"] = {
     loaded = true,
-    path = "/home/georgios/.local/share/nvim/site/pack/packer/start/treesitter-terraform-doc.nvim",
-    url = "https://github.com/Afourcat/treesitter-terraform-doc.nvim"
+    path = "/home/georgios/.local/share/nvim/site/pack/packer/start/rust-tools.nvim",
+    url = "https://github.com/simrat39/rust-tools.nvim"
   },
   ["vim-fugitive"] = {
     loaded = true,
@@ -113,10 +148,10 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: mason.nvim
-time([[Config for mason.nvim]], true)
-try_loadstring("\27LJ\2\n3\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\nmason\frequire\0", "config", "mason.nvim")
-time([[Config for mason.nvim]], false)
+-- Config for: nvim-cmp
+time([[Config for nvim-cmp]], true)
+try_loadstring("\27LJ\2\nC\0\1\4\0\4\0\a6\1\0\0'\3\1\0B\1\2\0029\1\2\0019\3\3\0B\1\2\1K\0\1\0\tbody\15lsp_expand\fluasnip\frequire¹\a\1\0\t\0004\0u6\0\0\0'\2\1\0B\0\2\0029\1\2\0005\3\6\0005\4\4\0003\5\3\0=\5\5\4=\4\a\0035\4\v\0009\5\b\0009\5\t\0059\5\n\5B\5\1\2=\5\f\0049\5\b\0009\5\t\0059\5\n\5B\5\1\2=\5\r\4=\4\t\0035\4\16\0009\5\14\0009\5\15\5B\5\1\2=\5\17\0049\5\14\0009\5\18\5B\5\1\2=\5\19\0049\5\14\0009\5\15\5B\5\1\2=\5\20\0049\5\14\0009\5\18\5B\5\1\2=\5\21\0049\5\14\0009\5\22\5)\aüÿB\5\2\2=\5\23\0049\5\14\0009\5\22\5)\a\4\0B\5\2\2=\5\24\0049\5\14\0009\a\14\0009\a\25\aB\a\1\0025\b\26\0B\5\3\2=\5\27\0049\5\14\0009\5\28\5B\5\1\2=\5\29\0049\5\14\0009\5\30\0055\a!\0009\b\31\0009\b \b=\b\"\aB\5\2\2=\5#\4=\4\14\0039\4\b\0009\4$\0044\6\a\0005\a%\0>\a\1\0065\a&\0>\a\2\0065\a'\0>\a\3\0065\a(\0>\a\4\0065\a)\0>\a\5\0065\a*\0>\a\6\6B\4\2\2=\4$\3B\1\2\0019\1\2\0009\1+\0015\3,\0005\4.\0009\5\14\0009\5-\0059\5+\5B\5\1\2=\5\14\0044\5\3\0005\6/\0>\6\1\5=\5$\4B\1\3\0019\1\2\0009\1+\0015\0030\0005\0041\0009\5\14\0009\5-\0059\5+\5B\5\1\2=\5\14\0044\5\3\0005\0062\0>\6\1\0055\0063\0>\6\2\5=\5$\4B\1\3\1K\0\1\0\1\0\1\tname\tpath\1\0\1\tname\fcmdline\1\0\0\1\2\0\0\6:\1\0\1\tname\vbuffer\1\0\0\vpreset\1\3\0\0\6/\6?\fcmdline\1\0\1\tname\rnvim_lua\1\0\1\tname\fluasnip\1\0\1\tname\vbuffer\1\0\1\tname\tpath\1\0\1\tname\28nvim_lsp_signature_help\1\0\1\tname\rnvim_lsp\fsources\t<CR>\rbehavior\1\0\1\vselect\2\vInsert\20ConfirmBehavior\fconfirm\n<C-e>\nclose\14<C-Space>\1\3\0\0\6i\6c\rcomplete\n<C-f>\n<C-b>\16scroll_docs\n<Tab>\f<S-Tab>\n<C-n>\21select_next_item\n<C-p>\1\0\0\21select_prev_item\fmapping\18documentation\15completion\1\0\0\rbordered\vwindow\vconfig\fsnippet\1\0\0\vexpand\1\0\0\0\nsetup\bcmp\frequire\0", "config", "nvim-cmp")
+time([[Config for nvim-cmp]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then
