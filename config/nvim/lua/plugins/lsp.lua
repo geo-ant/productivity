@@ -37,9 +37,10 @@ local function init(use)
 			})
 		end
 	})
+	
+	local rust_tools = require("rust-tools")
 
-
-	require("rust-tools").setup({
+	rust_tools.setup({
 		-- rust-tools options
 		tools = {
 			autoSetHints = true,
@@ -66,9 +67,10 @@ local function init(use)
 				require("settings/shared").on_attach(client, bufnr)
 				-- require("illuminate").on_attach(client)
 
-				local bufopts = { noremap = true, silent = true, buffer = bufnr }
+				local bufopts = {  buffer = bufnr }
 				--vim.keymap.set('n', '<leader><leader>rr', "<Cmd>RustRunnables<CR>", bufopts)
 				vim.keymap.set('n', 'K', "<Cmd>RustHoverActions<CR>", bufopts)
+				vim.keymap.set("n", "<Leader>a", rust_tools.code_action_group.code_action_group, { buffer = bufnr })
 			end,
 			["rust-analyzer"] = {
 				assist = {
