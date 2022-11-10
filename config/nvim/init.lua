@@ -1,3 +1,3 @@
-require("settings/mappings")
-require("general")
+require("settings.shared")
+require("settings.general")
 require("plugins")
