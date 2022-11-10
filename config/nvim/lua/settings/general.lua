@@ -9,7 +9,7 @@ set.number = true
 set.signcolumn = "yes"
 --set.splitright = true 
 --set.splitbelow = true
-set.scrolloff = 25
+set.scrolloff = 20
 set.colorcolumn = "80"
 
 vim.wo.wrap = false
