@@ -8,7 +8,7 @@ set.relativenumber = true
 set.number = true
 set.signcolumn = "yes"
 --set.splitright = true 
---set.splitbelow = true
+set.splitbelow = true
 set.scrolloff = 20
 set.colorcolumn = "80"
 
