@@ -66,6 +66,17 @@ local function init(use)
   use "hrsh7th/cmp-nvim-lsp"
   use "hrsh7th/cmp-nvim-lsp-signature-help"
   use "hrsh7th/cmp-path"
+  use {
+    "L3MON4D3/LuaSnip",
+    requires = { "saadparwaiz1/cmp_luasnip" },
+    config = function()
+      local keymap = vim.api.nvim_set_keymap
+      local opts = { noremap = true, silent = true }
+      keymap("i", "<leader><leader>'", "<cmd>lua require('luasnip').jump(1)<CR>", opts)
+      keymap("i", "<leader><leader>;", "<cmd>lua require('luasnip').jump(-1)<CR>", opts)
+      require("luasnip.loaders.from_lua").load({ paths = "~/.snippets" })
+    end
+  }
 end
 
 return { init = init }
