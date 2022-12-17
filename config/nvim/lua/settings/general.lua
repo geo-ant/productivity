@@ -11,6 +11,7 @@ set.signcolumn = "yes"
 set.splitbelow = true
 set.scrolloff = 20
 set.colorcolumn = "80"
+set.fsync = true
 
 vim.wo.wrap = false
 vim.g.netrw_banner = 0
