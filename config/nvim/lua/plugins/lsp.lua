@@ -5,7 +5,8 @@ local function init(use)
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
 		"neovim/nvim-lspconfig",
-		'simrat39/rust-tools.nvim'
+		'simrat39/rust-tools.nvim',
+    'ziglang/zig.vim'
 	}
 
 	require('mason').setup()
