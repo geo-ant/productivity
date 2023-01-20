@@ -2,8 +2,9 @@
 
 local function init(use)
   use {
-    "nvim-telescope/telescope.nvim",
-    requires = { "nvim-lua/plenary.nvim" },
+    "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim",
+    "nvim-telescope/telescope-fzf-native.nvim", run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
+    },
     config = function()
       --[[
           Opening mulitple files doesn't work by default.
@@ -17,6 +18,16 @@ local function init(use)
         ]]
       local actions = require("telescope.actions")
       local ts = require("telescope")
+      -- see issue https://github.com/nvim-telescope/telescope.nvim/issues/2104
+      -- to address the ordering of results in telescope find symbols
+      local fzf_opts = {
+          fuzzy = true,                    -- false will only do exact matching
+          override_generic_sorter = true,  -- override the generic sorter
+          override_file_sorter = true,     -- override the file sorter
+          case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+                                           -- the default case_mode is "smart_case"
+      }
+
 
       ts.setup({
         defaults = {
@@ -27,16 +38,22 @@ local function init(use)
             },
           },
         },
-        extensions = {
-          heading = {
-            treesitter = true,
-          },
-        },
+        -- extensions = {
+        --   heading = {
+        --     treesitter = true,
+        --   },
+        --   fzf = fzf_opts
+        -- },
+        -- pickers = {
+        --   lsp_dynamic_workspace_symbols = {
+        --     sorter = ts.extensions.fzf.native_fzf_sorter(fzf_opts)
+        --   },
+        -- },
       })
 
       --ts.load_extension("changed_files")
       --ts.load_extension("emoji")
-      --ts.load_extension("fzf")
+      -- ts.load_extension("fzf")
       --ts.load_extension("heading")
       --ts.load_extension("ui-select")
       --ts.load_extension("windows")
@@ -59,6 +76,7 @@ local function init(use)
       --vim.keymap.set("n", "<leader>lr", "<Cmd>Telescope lsp_references<CR>", { desc = "search lsp code reference" })
       vim.keymap.set("n", "<leader>ds", "<Cmd>Telescope lsp_document_symbols<CR>", { desc = "search lsp document tree" })
       vim.keymap.set("n", "<leader>fs", "<Cmd>Telescope lsp_dynamic_workspace_symbols<CR>", { desc = "find workspace symbols" })
+      vim.keymap.set("n", "<leader>fr", "<Cmd>Telescope lsp_references<CR>", { desc = "find references" })
       --vim.keymap.set("n", "<leader>m", "<Cmd>Telescope heading<CR>", { desc = "search markdown headings" })
       --vim.keymap.set("n", "<leader>n", "<Cmd>Noice telescope<CR>", { desc = "search messages handled by Noice plugin" })
       vim.keymap.set("n", "<leader>qf", "<Cmd>Telescope quickfix<CR>", { desc = "search quickfix list" })
