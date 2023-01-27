@@ -23,9 +23,14 @@ local function init(use)
 			"clangd",
 			"cmake",
 			"cssls",
+      "fortls",
 		}
 	})
 	mason_lspconfig.setup_handlers({
+    -- this is the default function for every handler,
+    -- here https://github.com/williamboman/mason.nvim/discussions/57
+    -- we can see how to set up functions for individual setup_handlers
+    -- DON'T forget to call the shared code, though!
 		function(server_name)
 			require("lspconfig")[server_name].setup({
 				on_attach = function(client, bufnr)
@@ -37,9 +42,28 @@ local function init(use)
 					end
 				end
 			})
-		end
+		end,
+    -- individual config for the fortran language server
+    ["fortls"] = function()
+			require("lspconfig").fortls.setup({
+				on_attach = function(client, bufnr)
+					require("settings/shared").on_attach(client, bufnr)
+					-- require("illuminate").on_attach(client)
+				end,
+        -- see https://fortls.fortran-lang.org/editor_integration.html#vim-neovim-gvim
+        cmd = {
+          'fortls',
+          -- see https://fortls.fortran-lang.org/options.html
+          -- for additional options
+          '--lowercase_intrinsics',
+          -- '--hover_signature',
+          -- '--hover_language=fortran',
+          -- '--use_signature_help'
+        },
+			})
+    end
 	})
-	
+
 	local rust_tools = require("rust-tools")
 
 	rust_tools.setup({
