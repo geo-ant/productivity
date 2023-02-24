@@ -18,7 +18,7 @@ local function init(use)
 			--"cpptools",
 			"marksman",
 			"rust_analyzer",
-			"sumneko_lua",
+			"lua_ls",
 			"zls",
 			"clangd",
 			"cmake",
