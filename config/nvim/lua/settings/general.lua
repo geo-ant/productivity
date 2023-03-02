@@ -14,5 +14,8 @@ set.colorcolumn = "80"
 set.fsync = true
 
 vim.wo.wrap = false
+-- https://shapeshed.com/vim-netrw/
 vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 3
+-- https://superuser.com/questions/1056929/open-file-in-vertical-split-in-vim-netrw/1062063#1062063
+vim.g.netrw_altv = 1

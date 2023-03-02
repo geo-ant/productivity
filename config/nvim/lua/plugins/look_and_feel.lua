@@ -5,7 +5,7 @@ local function init(use)
     "doums/darcula"
   }
 
-  vim.o.background = "dark"
+  -- vim.o.background = "dark"
   vim.cmd("colorscheme gruvbox")
   require("neoscroll").setup()
 end
