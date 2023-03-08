@@ -3,11 +3,10 @@ local function init(use)
     "karb94/neoscroll.nvim",
     "ellisonleao/gruvbox.nvim",
     "jnurmine/Zenburn",
-    "doums/darcula"
   }
 
   -- vim.o.background = "dark"
-  vim.cmd("colorscheme darcula")
+  vim.cmd("colorscheme gruvbox")
   require("neoscroll").setup()
 end
 
