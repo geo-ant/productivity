@@ -1,7 +1,7 @@
 -- this file contains c++ related things
 local function init(use)
   use {
-    "Civitasv/cmake-tools.nvim", requires = {"nvim-lua/plenary.nvim","mfussenegger/nvim-dap"}
+    "Civitasv/cmake-tools.nvim", requires = {"nvim-lua/plenary.nvim","mfussenegger/nvim-dap","jay-babu/mason-nvim-dap.nvim"}
   }
 
   require("cmake-tools").setup {

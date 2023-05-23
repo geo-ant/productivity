@@ -7,15 +7,17 @@ local function init(use)
     "neovim/nvim-lspconfig",
     'simrat39/rust-tools.nvim', reuqires = {"mfussenegger/nvim-dap"},
     'ziglang/zig.vim',
-    'rust-lang/rust.vim'
+    'rust-lang/rust.vim',
+    "jay-babu/mason-nvim-dap.nvim", requires = { "mfussenegger/nvim-dap", "williamboman/mason.nvim", },
   }
 
   require('mason').setup()
   local mason_lspconfig = require('mason-lspconfig')
   mason_lspconfig.setup({
     ensure_installed = {
-      --"codelldb",
-      --"cpptools",
+      -- this works for language servers only
+      -- for the debug adapter protocols we use the 
+      -- mason nvim dap plugin
       "marksman",
       "rust_analyzer",
       "lua_ls",
@@ -26,6 +28,13 @@ local function init(use)
       "fortls",
     }
   })
+  -- it's important to set up the dap plugin after the mason setup
+  -- which is why this is in this file and not in the seperate debugging file
+  require('mason-nvim-dap').setup({
+    ensure_installed = {"codelldb","cpptools"},
+    handlers = {},
+  })
+
   mason_lspconfig.setup_handlers({
     -- this is the default function for every handler,
     -- here https://github.com/williamboman/mason.nvim/discussions/57
@@ -61,7 +70,7 @@ local function init(use)
           -- '--use_signature_help'
         },
       })
-    end
+    end,
   })
 
   local rust_tools = require("rust-tools")

@@ -21,13 +21,7 @@ local function init(use)
       require("dapui").setup()
     end
   }
-  -- use { "leoluz/nvim-dap-go",
-  --   requires = { "mfussenegger/nvim-dap" },
-  --   run = "go install github.com/go-delve/delve/cmd/dlv@latest",
-  --   config = function()
-  --     require("dap-go").setup()
-  --   end
-  -- }
+
   use { "theHamsta/nvim-dap-virtual-text",
     requires = { "mfussenegger/nvim-dap" },
     config = function()
