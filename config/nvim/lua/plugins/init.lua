@@ -32,8 +32,15 @@ return require("packer").startup({
     use "nvim-tree/nvim-web-devicons"
 
     -- The following code loads our plugins based on their category group (e.g. autocomplete, lsp, search etc).
+    -- it loads all .lua files in the plugins directory, and then calls the init() function in each file.
     local plugins = vim.api.nvim_get_runtime_file("lua/plugins/*.lua", true)
     for _, v in ipairs(plugins) do -- NOTE: ipairs() keeps key order, pairs() doesn't.
+
+      if vim.fn.has("win32") then
+        -- on windows, the path is separated by backslashes, so we need to replace them with forward slashes
+        v = v:gsub("\\", "/")
+      end
+
       for _, s in ipairs(vim.split(v, "/lua/")) do
         -- skip init.lua as that is this file and would cause an infinite loop!
         -- but ensure we don't accidentally try to load the directory itself (i.e. .config/nvim)
