@@ -5,7 +5,7 @@ local function init(use)
     run = ":TSUpdate",
     config = function()
       require("nvim-treesitter.configs").setup({
-        ensure_installed = { "bash", "c", "cpp", "cmake", "css", "dockerfile", "help", "html",
+        ensure_installed = { "bash", "c", "cpp", "cmake", "css", "dockerfile", "vimdoc", "html",
           "http", "javascript", "json", "lua", "make", "markdown", "python", "regex", "ruby", "rust", "toml", "vim",
           "yaml", "zig" , "fortran"},
         highlight = {
