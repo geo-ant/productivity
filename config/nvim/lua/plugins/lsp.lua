@@ -2,22 +2,19 @@
 -- and https://rsdlt.github.io/posts/rust-nvim-ide-guide-walkthrough-development-debug/
 return {
   {
-    "ziglang/zig.vim",
-  },
-  {
-    "rust-lang/rust.vim",
-  },
-  {
     -- LSP
     "neovim/nvim-lspconfig",
-    config = function()
-    end
   }, {
     -- RUST LSP
     "simrat39/rust-tools.nvim",
-    dependencies = {"neovim/nvim-lspconfig", "mfussenegger/nvim-dap"},
+    dependencies = {
+      "neovim/nvim-lspconfig",
+      "mfussenegger/nvim-dap"
+    },
+    lazy = false,
     config = function()
-      require("rust-tools").setup({
+      local rt = require("rust-tools")
+      rt.setup({
         -- rust-tools options
         tools = {
           autoSetHints = true,
@@ -40,22 +37,21 @@ return {
         --       <property> should be a primitive.
         server = {
           on_attach = function(client, bufnr)
-            require("shared/lsp")(client, bufnr)
+            -- print("Attaching rust-tools to " .. client.name)
+            require("settings.shared")(client, bufnr)
 
             local bufopts = {
-              noremap = true,
-              silent = true,
+              -- noremap = true,
+              -- silent = true,
               buffer = bufnr
             }
-            vim.keymap.set('n', '<leader><leader>rr',
-              "<Cmd>RustRunnables<CR>", bufopts)
-            vim.keymap.set('n', 'K', "<Cmd>RustHoverActions<CR>",
-            bufopts)
+            -- Hover actions
+            vim.keymap.set("n", "K", rt.hover_actions.hover_actions, bufopts)
           end,
           ["rust-analyzer"] = {
             assist = {
               importEnforceGranularity = true,
-              importPrefix = "crate"
+              importPrefix = "create"
             },
             cargo = { allFeatures = true },
             checkOnSave = {
@@ -180,6 +176,12 @@ return {
       vim.keymap.set("n", "<leader><leader>ll",
         "<Cmd>TroubleToggle loclist<CR>", bufopts)
     end
+  },
+  {
+    "ziglang/zig.vim",
+  },
+  {
+    "rust-lang/rust.vim",
   },
   {
     -- ADD MISSING DIAGNOSTICS HIGHLIGHT GROUPS
