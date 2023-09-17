@@ -1,17 +1,14 @@
-local function init(use)
-  use { 
+return {
+  {
     "karb94/neoscroll.nvim",
-    "ellisonleao/gruvbox.nvim",
-    "folke/tokyonight.nvim",
-    "EdenEast/nightfox.nvim",
-    "rebelot/kanagawa.nvim",
-    "ribru17/bamboo.nvim",
-    "loctvl842/monokai-pro.nvim",
-  }
-
-  -- vim.o.background = "dark"
-  vim.cmd("colorscheme gruvbox")
-  require("neoscroll").setup()
-end
-
-return {init = init}
+    config = function()
+      require("neoscroll").setup()
+    end,
+  },
+  -- colorscheme is set up in plugins.lua
+  {"ellisonleao/gruvbox.nvim"},
+  {"folke/tokyonight.nvim"},
+  {"EdenEast/nightfox.nvim"},
+  {"loctvl842/monokai-pro.nvim"},
+  {"Mofiqul/vscode.nvim"}
+}

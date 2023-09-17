@@ -1,6 +1,4 @@
-local export = {}
-
-function export.on_attach(client, bufnr)
+return function(client, bufnr)
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
   vim.keymap.set('n', '<c-]>', "<Cmd>lua vim.lsp.buf.definition()<CR>", bufopts)
   vim.keymap.set('n', 'K', "<Cmd>lua vim.lsp.buf.hover()<CR>", bufopts)
@@ -32,5 +30,3 @@ function export.on_attach(client, bufnr)
     -- require("nvim-navic").attach(client, bufnr)
   end
 end
-
-return export

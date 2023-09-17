@@ -1,62 +1,47 @@
 -- see https://github.com/Integralist/dotfiles/blob/main/.config/nvim/lua/plugins/search.lua
+return {
+    {
+        -- SEARCH
+        "nvim-telescope/telescope.nvim",
+        dependencies = {"nvim-lua/plenary.nvim"},
+        config = function()
+            --[[
+          Opening multiple files doesn't work by default.
 
-local function init(use)
-  use {
-    "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim",
-    "nvim-telescope/telescope-fzf-native.nvim", run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
-    },
-    config = function()
-      --[[
-          Opening mulitple files doesn't work by default.
           You can either following the implementation detailed here:
           https://github.com/nvim-telescope/telescope.nvim/issues/1048#issuecomment-1220846367
+
           Or you can have a more complex workflow:
           - Select multiple files using <Tab>
           - Send the selected files to the quickfix window using <C-o>
           - Search the quickfix window (using either :copen or <leader>q)
+
           NOTE: Scroll the preview window using <C-d> and <C-u>.
         ]]
       local actions = require("telescope.actions")
       local ts = require("telescope")
-      -- see issue https://github.com/nvim-telescope/telescope.nvim/issues/2104
-      -- to address the ordering of results in telescope find symbols
-      local fzf_opts = {
-          fuzzy = true,                    -- false will only do exact matching
-          override_generic_sorter = true,  -- override the generic sorter
-          override_file_sorter = true,     -- override the file sorter
-          case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-                                           -- the default case_mode is "smart_case"
-      }
-
 
       ts.setup({
         defaults = {
+          layout_strategy = "vertical",
+          layout_config = {height = 0.75, preview_height = 0.7},
           mappings = {
             i = {
               ["<esc>"] = actions.close,
-              ["<C-o>"] = actions.send_selected_to_qflist,
-            },
+              ["<C-o>"] = actions.send_selected_to_qflist
+            }
           },
+          scroll_strategy = "limit"
         },
-        -- extensions = {
-        --   heading = {
-        --     treesitter = true,
-        --   },
-        --   fzf = fzf_opts
-        -- },
-        -- pickers = {
-        --   lsp_dynamic_workspace_symbols = {
-        --     sorter = ts.extensions.fzf.native_fzf_sorter(fzf_opts)
-        --   },
-        -- },
+        extensions = {heading = {treesitter = true}}
       })
 
-      --ts.load_extension("changed_files")
-      --ts.load_extension("emoji")
-      -- ts.load_extension("fzf")
-      --ts.load_extension("heading")
-      --ts.load_extension("ui-select")
-      --ts.load_extension("windows")
+      -- ts.load_extension("changed_files")
+      -- ts.load_extension("emoji")
+      ts.load_extension("fzf")
+      -- ts.load_extension("heading")
+      ts.load_extension("ui-select")
+      -- ts.load_extension("windows")
 
       vim.g.telescope_changed_files_base_branch = "main"
 
@@ -85,8 +70,98 @@ local function init(use)
       --vim.keymap.set("n", "<leader>s", "<Cmd>Telescope treesitter<CR>", { desc = "search treesitter symbols" }) -- similar to lsp_document_symbols but treesitter doesn't know what a 'struct' is, just that it's a 'type'.
       --vim.keymap.set("n", "<leader>w", "<Cmd>Telescope windows<CR>", { desc = "search windows" })
       vim.keymap.set("n", "<leader>fg", "<Cmd>Telescope live_grep<CR>", { desc = "search text" })
-    end
-  }
-  end
 
-  return {init = init}
+      -- Remove the Vim builtin colorschemes so they don't show in Telescope.
+      vim.cmd("silent !rm $VIMRUNTIME/colors/*.vim &> /dev/null")
+        end
+    }, {
+        -- FZF SORTER FOR TELESCOPE WRITTEN IN C
+        'nvim-telescope/telescope-fzf-native.nvim', 
+        build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build', 
+    }, {
+        -- USE TELESCOPE FOR UI ELEMENTS
+        "nvim-telescope/telescope-ui-select.nvim",
+        config = function() require("telescope").setup({}) end
+    }, {
+        -- SEARCH WINDOWS IN TELESCOPE
+        "kyoh86/telescope-windows.nvim"
+    }, {
+        -- SEARCH MARKDOWN HEADINGS IN TELESCOPE
+        "crispgm/telescope-heading.nvim"
+    }, {
+        -- SEARCH EMOJIS IN TELESCOPE
+        "xiyaowong/telescope-emoji.nvim"
+    }, {
+        -- SEARCH CHANGED GIT FILES IN TELESCOPE
+        "axkirillov/telescope-changed-files"
+    }, {
+        -- SEARCH TABS IN TELESCOPE
+        "LukasPietzschmann/telescope-tabs",
+        config = function()
+            vim.keymap.set("n", "<leader>t",
+                           "<Cmd>lua require('telescope-tabs').list_tabs()<CR>",
+                           {desc = "search tabs"})
+        end
+    }, {
+        -- SEARCH NOTES/TODOS IN TELESCOPE
+        "folke/todo-comments.nvim",
+        dependencies = "nvim-lua/plenary.nvim",
+        config = function()
+            require("todo-comments").setup({
+                keywords = {
+                    WARN = {
+                        icon = " ",
+                        color = "warning",
+                        alt = {"WARNING", "XXX", "IMPORTANT"}
+                    }
+                }
+            })
+        end
+    }, {
+        -- SEARCH INDEXER
+        "kevinhwang91/nvim-hlslens",
+        config = true
+    }, {
+        -- IMPROVES ASTERISK BEHAVIOR
+        "haya14busa/vim-asterisk",
+        config = function()
+            vim.api.nvim_set_keymap('n', '*',
+                                    [[<Plug>(asterisk-z*)<Cmd>lua require('hlslens').start()<CR>]],
+                                    {})
+            vim.api.nvim_set_keymap('n', '#',
+                                    [[<Plug>(asterisk-z#)<Cmd>lua require('hlslens').start()<CR>]],
+                                    {})
+            vim.api.nvim_set_keymap('n', 'g*',
+                                    [[<Plug>(asterisk-gz*)<Cmd>lua require('hlslens').start()<CR>]],
+                                    {})
+            vim.api.nvim_set_keymap('n', 'g#',
+                                    [[<Plug>(asterisk-gz#)<Cmd>lua require('hlslens').start()<CR>]],
+                                    {})
+
+            vim.api.nvim_set_keymap('x', '*',
+                                    [[<Plug>(asterisk-z*)<Cmd>lua require('hlslens').start()<CR>]],
+                                    {})
+            vim.api.nvim_set_keymap('x', '#',
+                                    [[<Plug>(asterisk-z#)<Cmd>lua require('hlslens').start()<CR>]],
+                                    {})
+            vim.api.nvim_set_keymap('x', 'g*',
+                                    [[<Plug>(asterisk-gz*)<Cmd>lua require('hlslens').start()<CR>]],
+                                    {})
+            vim.api.nvim_set_keymap('x', 'g#',
+                                    [[<Plug>(asterisk-gz#)<Cmd>lua require('hlslens').start()<CR>]],
+                                    {})
+        end
+    }, {
+        -- SEARCH AND REPLACE
+        "nvim-pack/nvim-spectre",
+        dependencies = {"nvim-lua/plenary.nvim"},
+        config = function()
+            require("spectre").setup({
+                replace_engine = {["sed"] = {cmd = "gsed"}}
+            })
+            vim.keymap.set("n", "<leader>S",
+                           "<Cmd>lua require('spectre').open()<CR>",
+                           {desc = "search and replace"})
+        end
+    }
+}

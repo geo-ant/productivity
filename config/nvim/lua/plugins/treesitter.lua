@@ -1,91 +1,111 @@
-local function init(use)
-  -- syntax tree parsing for more intelligent syntax highlighting and code navigation
-  use {
+return {
+  {
+    -- TREESITTER
+    -- Syntax tree parsing for more intelligent syntax highlighting and code navigation
     "nvim-treesitter/nvim-treesitter",
-    run = ":TSUpdate",
+    build = ":TSUpdate",
     config = function()
       require("nvim-treesitter.configs").setup({
-        ensure_installed = { "bash", "c", "cpp", "cmake", "css", "dockerfile", "vimdoc", "html",
-          "http", "javascript", "json", "lua", "make", "markdown", "python", "regex", "ruby", "rust", "toml", "vim",
-          "yaml", "zig" , "fortran"},
-        highlight = {
-          enable = true,
+        ensure_installed = {
+        "bash",
+        "c",
+        "cpp",
+        "cmake",
+        "css",
+        "dockerfile",
+        "fortran",
+        "html",
+        "http",
+        "javascript",
+        "json",
+        "lua",
+        "make",
+        "markdown",
+        "python",
+        "regex",
+        "rust",
+        "toml",
+        "vim",
+        "vimdoc",
+        "yaml",
+        "zig",          
         },
+        highlight = { enable = true },
         rainbow = {
           enable = true,
           extended_mode = true,
-          max_file_lines = nil,
+          max_file_lines = nil
         }
       })
     end
-  }
-  use { "nvim-treesitter/nvim-treesitter-textobjects",
-    requires = { "nvim-treesitter/nvim-treesitter" },
+  }, {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = function()
       require("nvim-treesitter.configs").setup({
         incremental_selection = {
           enable = true,
           keymaps = {
-            init_selection = "gnn", -- start treesitter selection process
-            scope_incremental = "gnm", -- increment selection to surrounding scope
-            node_incremental = ";", -- increment selection to next 'node'
-            node_decremental = ",", -- decrement selection to prev 'node'
-          },
+            init_selection = "gnn",                  -- start treesitter selection process
+            scope_incremental = "gnm",               -- increment selection to surrounding scope
+            node_incremental = ";",                  -- increment selection to next 'node'
+            node_decremental = ","                   -- decrement selection to prev 'node'
+          }
         },
-        indent = {
-          enable = true
-        },
+        indent = { enable = true },
         textobjects = {
           select = {
             enable = true,
             lookahead = true,
             include_surrounding_whitespace = false,
             keymaps = {
-              ["af"] = { query = "@function.outer", desc = "select around a function" },
-              ["if"] = { query = "@function.inner", desc = "select inner part of a function" },
-              ["ac"] = { query = "@class.outer", desc = "select around a class" },
-              ["ic"] = { query = "@class.inner", desc = "select inner part of a class" },
+              ["af"] = {
+                query = "@function.outer",
+                desc = "select around a function"
+              },
+              ["if"] = {
+                query = "@function.inner",
+                desc = "select inner part of a function"
+              },
+              ["ac"] = {
+                query = "@class.outer",
+                desc = "select around a class"
+              },
+              ["ic"] = {
+                query = "@class.inner",
+                desc = "select inner part of a class"
+              }
             },
             selection_modes = {
               ['@parameter.outer'] = 'v',
               ['@function.outer'] = 'V',
-              ['@class.outer'] = '<c-v>',
-            },
+              ['@class.outer'] = '<c-v>'
+            }
           },
           move = {
             enable = true,
             set_jumps = true,
             goto_next_start = {
               ["]]"] = "@function.outer",
-              ["]\\"] = "@class.outer",
+              ["]\\"] = "@class.outer"
             },
             goto_previous_start = {
               ["[["] = "@function.outer",
-              ["[\\"] = "@class.outer",
-            },
-          },
-        },
+              ["[\\"] = "@class.outer"
+            }
+          }
+        }
       })
     end
+  }, {
+    -- HIGHLIGHT ARGUMENTS' DEFINITIONS AND USAGES, USING TREESITTER
+    "m-demare/hlargs.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    config = true
+  }, {
+    -- SHOWS THE CONTEXT OF THE CURRENTLY VISIBLE BUFFER CONTENTS
+    "nvim-treesitter/nvim-treesitter-context",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    opts = { separator = "-" }
   }
-  use { "lewis6991/spellsitter.nvim",
-    config = function()
-      require("spellsitter").setup()
-    end
-  }
-  use { "m-demare/hlargs.nvim",
-    requires = { "nvim-treesitter/nvim-treesitter" },
-    config = function()
-      require("hlargs").setup()
-    end
-  }
-  use { "nvim-treesitter/nvim-treesitter-context", requires = "nvim-treesitter/nvim-treesitter",
-    config = function()
-      require("treesitter-context").setup({
-        separator = "-",
-      })
-    end
-  } -- buffer scroll context
-end
-
-return {init = init}
+}
