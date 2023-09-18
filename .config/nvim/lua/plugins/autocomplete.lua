@@ -1,90 +1,99 @@
 return {
-  {
-    "hrsh7th/nvim-cmp",
-    config = function()
-      local cmp = require("cmp")
-
-      cmp.setup({
-        experimental = { ghost_text = true },
-        snippet = {
-          expand = function(args)
-            require("luasnip").lsp_expand(args.body)
-          end
-        },
-        window = {
-          completion = cmp.config.window.bordered(),
-          documentation = cmp.config.window.bordered()
-        },
-        mapping = {
-          ['<C-p>'] = cmp.mapping.select_prev_item(),
-          ['<C-n>'] = cmp.mapping.select_next_item(),
-          -- Add tab support
-          -- ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-          -- ['<Tab>'] = cmp.mapping.select_next_item(),
-          --["<Up>"] = cmp.mapping.select_prev_item(),
-          --["<Down>"] = cmp.mapping.select_next_item(),
-          --["<Left>"] = cmp.mapping.select_prev_item(),
-          --["<Right>"] = cmp.mapping.select_next_item(),
-          -- ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-          -- ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-          ["<C-e>"] = cmp.mapping.close(),
-          ["<CR>"] = cmp.mapping.confirm({
-            behavior = cmp.ConfirmBehavior.Insert,
-            select = true,
-          })
-        },
-        sources = cmp.config.sources({
-          -- ordered by priority
-          { name = "nvim_lsp", keyword_length = 1 },
-          { name = "nvim_lsp_signature_help" },
-          { name = "luasnip" },
-          -- { name = "path" },
-          -- { name = "buffer" },
-          { name = "nvim_lua" }
-        })
-      })
-
-      cmp.setup.cmdline({ "/", "?" }, {
-        mapping = cmp.mapping.preset.cmdline(), -- Tab for selection (arrows needed for selecting past items)
-        sources = { { name = "buffer" } }
-      })
-
-      cmp.setup.cmdline({ ":" }, {
-        mapping = cmp.mapping.preset.cmdline(), -- Tab for selection (arrows needed for selecting past items)
-        sources = { { name = "cmdline" }, { name = "path" } }
-      })
-    end
-  },
-  "hrsh7th/cmp-buffer",
-  "hrsh7th/cmp-cmdline",
-  "hrsh7th/cmp-nvim-lua",
-  "hrsh7th/cmp-nvim-lsp",
-  "hrsh7th/cmp-nvim-lsp-signature-help",
-  "hrsh7th/cmp-path",
-  {
-    "L3MON4D3/LuaSnip",
-    lazy = false,
-    dependencies = { "saadparwaiz1/cmp_luasnip" },
-    keys = {
-      {
-        "<leader><leader>;",
-        function() require("luasnip").jump(1) end,
-        desc = "Jump forward a snippet placement",
-        mode = "i",
-        noremap = true,
-        silent = true
-      }, {
-        "<leader><leader>,",
-        function() require("luasnip").jump(-1) end,
-        desc = "Jump backward a snippet placement",
-        mode = "i",
-        noremap = true,
-        silent = true
-      }
-    },
-    config = function()
-      require("luasnip.loaders.from_lua").load({ paths = "~/.snippets" })
-    end
-  }
+	{
+		"hrsh7th/nvim-cmp",
+		version = false, -- last release is way too old
+		event = "InsertEnter",
+		dependencies = {
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
+			"saadparwaiz1/cmp_luasnip",
+		},
+		opts = function()
+			vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
+			local cmp = require("cmp")
+			local defaults = require("cmp.config.default")()
+			return {
+				completion = {
+					completeopt = "menu,menuone,noinsert",
+				},
+				snippet = {
+					expand = function(args)
+						require("luasnip").lsp_expand(args.body)
+					end,
+				},
+				mapping = cmp.mapping.preset.insert({
+					["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+					["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+					["<C-b>"] = cmp.mapping.scroll_docs(-4),
+					["<C-f>"] = cmp.mapping.scroll_docs(4),
+					["<C-Space>"] = cmp.mapping.complete(),
+					["<C-e>"] = cmp.mapping.abort(),
+					["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+					["<S-CR>"] = cmp.mapping.confirm({
+						behavior = cmp.ConfirmBehavior.Replace,
+						select = true,
+					}), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+				}),
+				sources = cmp.config.sources({
+					{ name = "nvim_lsp" },
+					{ name = "luasnip" },
+					{ name = "buffer" },
+					{ name = "path" },
+				}),
+				formatting = {
+					format = function(_, item)
+						local icons = require("lazyvim.config").icons.kinds
+						if icons[item.kind] then
+							item.kind = icons[item.kind] .. item.kind
+						end
+						return item
+					end,
+				},
+				experimental = {
+					ghost_text = {
+						hl_group = "CmpGhostText",
+					},
+				},
+				sorting = defaults.sorting,
+			}
+		end,
+	}
+,
+	"hrsh7th/cmp-buffer",
+	"hrsh7th/cmp-cmdline",
+	"hrsh7th/cmp-nvim-lua",
+	"hrsh7th/cmp-nvim-lsp",
+	"hrsh7th/cmp-nvim-lsp-signature-help",
+	"hrsh7th/cmp-path",
+	{
+		"L3MON4D3/LuaSnip",
+		lazy = false,
+		dependencies = { "saadparwaiz1/cmp_luasnip" },
+		keys = {
+			{
+				"<leader><leader>;",
+				function()
+					require("luasnip").jump(1)
+				end,
+				desc = "Jump forward a snippet placement",
+				mode = "i",
+				noremap = true,
+				silent = true,
+			},
+			{
+				"<leader><leader>,",
+				function()
+					require("luasnip").jump(-1)
+				end,
+				desc = "Jump backward a snippet placement",
+				mode = "i",
+				noremap = true,
+				silent = true,
+			},
+		},
+		config = function()
+			require("luasnip.loaders.from_lua").load({ paths = "~/.snippets" })
+		end,
+	},
 }
