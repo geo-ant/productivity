@@ -18,7 +18,7 @@ vim.wo.wrap = false
 -- https://shapeshed.com/vim-netrw/
 vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 3
-vim.g.netrw_browse_split = 4
+vim.g.netrw_browse_split = 0
 vim.g.netrw_winsize = 25
 -- https://superuser.com/questions/1056929/open-file-in-vertical-split-in-vim-netrw/1062063#1062063
 vim.g.netrw_altv = 1
