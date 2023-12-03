@@ -1,8 +1,9 @@
-theme = "darcula"
+theme = "gruvbox"
 
 [editor]
 line-number = "relative"
 mouse = false
+rulers = [80]
 
 [editor.cursor-shape]
 insert = "bar"
