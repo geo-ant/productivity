@@ -4,6 +4,7 @@ theme = "gruvbox"
 line-number = "relative"
 mouse = false
 rulers = [80]
+auto-pairs = false
 
 [editor.cursor-shape]
 insert = "bar"
