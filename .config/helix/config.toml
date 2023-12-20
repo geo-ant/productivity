@@ -13,3 +13,11 @@ select = "underline"
 
 [editor.file-picker]
 hidden = false
+
+[editor.lsp]
+display-inlay-hints = true
+display-messages = true
+snippets = true
+
+[keys.normal.space]
+i = ":toggle lsp.display-inlay-hints"
