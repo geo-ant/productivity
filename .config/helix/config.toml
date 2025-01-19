@@ -5,6 +5,8 @@ line-number = "relative"
 mouse = false
 rulers = [80]
 auto-pairs = false
+# Minimum severity to show a diagnostic after the end of a line:
+end-of-line-diagnostics = "hint"
 
 [editor.cursor-shape]
 insert = "bar"
@@ -18,6 +20,13 @@ hidden = false
 display-inlay-hints = true
 display-messages = true
 snippets = true
+
+[editor.inline-diagnostics]
+# Minimum severity to show a diagnostic on the primary cursor's line.
+# Note that `cursor-line` diagnostics are hidden in insert mode.
+cursor-line = "error"
+# Minimum severity to show a diagnostic on other lines:
+# other-lines = "error"
 
 [keys.normal.space]
 i = ":toggle lsp.display-inlay-hints"
